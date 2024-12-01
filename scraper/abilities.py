@@ -38,3 +38,28 @@ class Ability:
     
     def __str__(self) -> str:
         return f"ability[{self.id}]={self.name}"
+
+class PokemonAbility:
+    def __init__(self, pokemon_id: int, ability_id: int) -> None:
+        self.pokemon_id = pokemon_id
+        self.ability_id = ability_id
+
+    @staticmethod
+    def from_pokemon_list(pokemon_list: List['Pokemon']) -> List['PokemonAbility']:
+        pokemon_ability_list = []
+        for pokemon in pokemon_list:
+            for ability_id in pokemon.ability_ids:
+                pokemon_ability_list.append(
+                    PokemonAbility(
+                        pokemon.id,
+                        ability_id
+                    )
+                )
+        
+        return pokemon_ability_list
+
+    def __repr__(self) -> str:
+        return f"pokemon_ability[{self.pokemon_id}]={self.ability_id}"
+    
+    def __str__(self) -> str:
+        return f"pokemon_ability[{self.pokemon_id}]={self.ability_id}"
