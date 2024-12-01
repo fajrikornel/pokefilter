@@ -22,7 +22,7 @@ class PType:
         for type in obj.results:
             types.append(
                 PType(
-                    PType.__parse_id_from_url(type.url),
+                    PType.parse_id_from_url(type.url),
                     type.name
                 )
             )
@@ -30,7 +30,7 @@ class PType:
         return types
 
     @staticmethod
-    def __parse_id_from_url(type_url: str) -> int:
+    def parse_id_from_url(type_url: str) -> int:
         return int(type_url.split("/")[-2])
 
     def __repr__(self) -> str:
