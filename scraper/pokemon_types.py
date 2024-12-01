@@ -31,7 +31,7 @@ class PType:
 
     @staticmethod
     def __parse_id_from_url(type_url: str) -> int:
-        return type_url.split("/")[-2]
+        return int(type_url.split("/")[-2])
 
     def __repr__(self) -> str:
         return f"type[{self.id}]={self.name}"
