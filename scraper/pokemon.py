@@ -1,6 +1,7 @@
 from typing import List
 from pokemon_types import PType
 from abilities import Ability
+from moves import Move
 import pokebase
 
 class Pokemon:
@@ -17,6 +18,7 @@ class Pokemon:
         self.spd = None
 
         self.ability_ids = []
+        self.move_ids = []
 
     @staticmethod
     def get_all_pokemon_without_stats() -> List['Pokemon']:
@@ -65,8 +67,11 @@ class Pokemon:
         for pokemon_ability in pokemon_obj.abilities:
             self.ability_ids.append(Ability.parse_id_from_url(pokemon_ability.ability.url))
 
+        for pokemon_move in pokemon_obj.moves:
+            self.move_ids.append(Move.parse_id_from_url(pokemon_move.move.url))
+
     def __repr__(self) -> str:
-        return f"pokemon[{self.id}]={self.name}, type_1_id={self.type_1_id} type_2_id={self.type_2_id} hp={self.hp} atk={self.atk} defn={self.defn} sp_atk={self.sp_atk} sp_def={self.sp_def} spd={self.spd}, ability_ids={self.ability_ids}"
+        return f"pokemon[{self.id}]={self.name}, type_1_id={self.type_1_id} type_2_id={self.type_2_id} hp={self.hp} atk={self.atk} defn={self.defn} sp_atk={self.sp_atk} sp_def={self.sp_def} spd={self.spd}, ability_ids={self.ability_ids}, move_ids={self.move_ids}"
     
     def __str__(self) -> str:
-        return f"pokemon[{self.id}]={self.name}, type_1_id={self.type_1_id} type_2_id={self.type_2_id} hp={self.hp} atk={self.atk} defn={self.defn} sp_atk={self.sp_atk} sp_def={self.sp_def} spd={self.spd}, ability_ids={self.ability_ids}"
+        return f"pokemon[{self.id}]={self.name}, type_1_id={self.type_1_id} type_2_id={self.type_2_id} hp={self.hp} atk={self.atk} defn={self.defn} sp_atk={self.sp_atk} sp_def={self.sp_def} spd={self.spd}, ability_ids={self.ability_ids}, move_ids={self.move_ids}"
