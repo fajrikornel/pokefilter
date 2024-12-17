@@ -12,6 +12,10 @@ type InMemorySqlStore struct {
 	db *sql.DB
 }
 
+func (s *InMemorySqlStore) ExecuteQuery(query string) (*sql.Rows, error) {
+	return s.db.Query(query)
+}
+
 func NewInMemorySqlStore() (*InMemorySqlStore, error) {
 	db, err := sql.Open("sqlite3", ":memory:")
 	if err != nil {
