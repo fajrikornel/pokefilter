@@ -29,7 +29,7 @@ func TestNewTypeFilter(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name:    "should return error if one of excluded types is type1 or type2",
+			name:    "should return error if type1 is included and one of excluded types is type1",
 			args:    args{type1: "normal", type2: "", excludeTypes: []string{"normal"}},
 			wantErr: true,
 		},
@@ -118,6 +118,24 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 					WHERE 
 						((t1.name = 'fire' AND (t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark') OR t2.name IS NULL)) OR 
 						(t2.name = 'fire' AND (t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark') OR t1.name IS NULL))) AND 
+						p.id IN (%s)`, mockFilterQuery),
+			wantErr: false,
+		},
+		{
+			name: "should build correct query if only excludeTypes specified",
+			fields: fields{
+				excludeTypes: []string{"fighting", "psychic", "flying", "dark"},
+				chain:        NewMockFilter(),
+			},
+			want: fmt.Sprintf(`
+					SELECT 
+						DISTINCT p.id as pokemon_id 
+					FROM 
+					    pokemon p 
+						LEFT JOIN types t1 on p.type_1_id = t1.id 
+						LEFT JOIN types t2 on p.type_2_id = t2.id 
+					WHERE 
+						(t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark') AND (t2.name IS NULL OR t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark'))) AND 
 						p.id IN (%s)`, mockFilterQuery),
 			wantErr: false,
 		},

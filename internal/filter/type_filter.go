@@ -14,17 +14,19 @@ type TypeFilter struct {
 }
 
 func NewTypeFilter(type1, type2 string, excludeTypes []string) (*TypeFilter, error) {
-	if type1 == "" && type2 == "" {
-		return nil, errors.New("type1 and type2 cannot be empty")
+	if type1 == "" && type2 == "" && (excludeTypes == nil || len(excludeTypes) == 0) {
+		return nil, errors.New("type1, type2, excludeTypes cannot be empty")
 	}
 
 	if type2 != "" && len(excludeTypes) > 0 {
 		return nil, errors.New("cannot specify both types and specify excludeTypes too")
 	}
 
-	for _, excludeType := range excludeTypes {
-		if type1 == excludeType {
-			return nil, errors.New("excluded type is filtered")
+	if type1 != "" && excludeTypes != nil && len(excludeTypes) > 0 {
+		for _, excludeType := range excludeTypes {
+			if type1 == excludeType {
+				return nil, errors.New("excluded type is filtered")
+			}
 		}
 	}
 
@@ -49,7 +51,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 				((t1.name = '%s' AND t2.name = '%s') OR 
 				(t2.name = '%s' AND t1.name = '%s')) 
 			`, f.type1, f.type2, f.type1, f.type2)
-	} else {
+	} else if f.type1 != "" {
 		if f.excludeTypes != nil && len(f.excludeTypes) > 0 {
 			excludeTypesString := "'" + strings.Join(f.excludeTypes, "', '") + "'"
 			query = fmt.Sprintf(`
@@ -75,6 +77,18 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 					(t1.name = '%s' OR t2.name = '%s') 
 				`, f.type1, f.type1)
 		}
+	} else {
+		excludeTypesString := "'" + strings.Join(f.excludeTypes, "', '") + "'"
+		query = fmt.Sprintf(`
+			SELECT 
+				DISTINCT p.id as pokemon_id 
+			FROM 
+				pokemon p 
+				LEFT JOIN types t1 on p.type_1_id = t1.id 
+				LEFT JOIN types t2 on p.type_2_id = t2.id 
+			WHERE 
+				(t1.name NOT IN (%s) AND (t2.name IS NULL OR t2.name NOT IN (%s))) 
+			`, excludeTypesString, excludeTypesString)
 	}
 
 	var chainQuery string
