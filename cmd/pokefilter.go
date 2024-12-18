@@ -51,4 +51,8 @@ func main() {
 	}
 
 	fmt.Println("Made by F. Kornel / 2024")
+
+	var input string
+	fmt.Println("Press the Enter key to close the program.")
+	_, _ = fmt.Scanln(&input)
 }
