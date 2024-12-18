@@ -8,9 +8,6 @@ import "errors"
 type Filter interface {
 	BuildQuery() (string, error)
 	Chain(other Filter) (Filter, error)
-}
-
-type CLIDisplay interface {
 	Display() string
 }
 
