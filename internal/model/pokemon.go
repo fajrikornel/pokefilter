@@ -13,7 +13,7 @@ type Pokemon struct {
 	id      int
 	name    string
 	type1Id int
-	type2Id int
+	type2Id int // -1 means no type2
 	hp      int
 	atk     int
 	def     int
@@ -30,7 +30,7 @@ func NewPokemonStore(sqlStore *InMemorySqlStore) *PokemonStore {
 
 func (m *PokemonStore) GetPokemonByIds(pokemonIds []int) ([]Pokemon, error) {
 	transformedIds := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(pokemonIds)), ","), "[]")
-	res, err := m.sqlStore.ExecuteQuery(fmt.Sprintf("SELECT id, name, type_1_id, type_2_id, hp, atk, def, sp_atk, sp_def, spd FROM pokemon WHERE id IN (%s)", transformedIds))
+	res, err := m.sqlStore.ExecuteQuery(fmt.Sprintf("SELECT id, name, type_1_id, COALESCE(-1, type_2_id), hp, atk, def, sp_atk, sp_def, spd FROM pokemon WHERE id IN (%s)", transformedIds))
 	if err != nil {
 		return nil, err
 	}
