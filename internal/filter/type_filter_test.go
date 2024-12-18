@@ -116,8 +116,8 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
 						LEFT JOIN types t2 on p.type_2_id = t2.id 
 					WHERE 
-						((t1.name = 'fire' AND t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark')) OR 
-						(t2.name = 'fire' AND t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark'))) AND 
+						((t1.name = 'fire' AND (t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark') OR t2.name IS NULL)) OR 
+						(t2.name = 'fire' AND (t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark') OR t1.name IS NULL))) AND 
 						p.id IN (%s)`, mockFilterQuery),
 			wantErr: false,
 		},

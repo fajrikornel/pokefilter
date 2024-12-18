@@ -60,8 +60,8 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 					LEFT JOIN types t1 on p.type_1_id = t1.id 
 					LEFT JOIN types t2 on p.type_2_id = t2.id 
 				WHERE 
-					((t1.name = '%s' AND t2.name NOT IN (%s)) OR 
-					(t2.name = '%s' AND t1.name NOT IN (%s))) 
+					((t1.name = '%s' AND (t2.name NOT IN (%s) OR t2.name IS NULL)) OR 
+					(t2.name = '%s' AND (t1.name NOT IN (%s) OR t1.name IS NULL))) 
 				`, f.type1, excludeTypesString, f.type1, excludeTypesString)
 		} else {
 			query = fmt.Sprintf(`
