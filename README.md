@@ -23,3 +23,7 @@ Build:
 ```bash
 go build -o build/pokefilter cmd/pokefilter.go
 ```
+
+## Known issues
+
+If you encounter problems with Windows Defender after downloading the Windows release, you can right click the file > Properties > tick the Unblock box at the bottom (do at your own risk).
