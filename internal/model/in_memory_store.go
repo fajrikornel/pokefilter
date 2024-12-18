@@ -33,6 +33,11 @@ func NewInMemorySqlStore() (*InMemorySqlStore, error) {
 		return nil, err
 	}
 
+	err = createIndexes(sqlStore)
+	if err != nil {
+		return nil, err
+	}
+
 	return sqlStore, nil
 }
 
@@ -338,6 +343,27 @@ func seedPokemonMovesTable(sqlStore *InMemorySqlStore) error {
 		if err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+func createIndexes(sqlStore *InMemorySqlStore) error {
+	query := `
+				CREATE INDEX type_name__idx ON types(name);
+				CREATE INDEX move_name__idx ON moves(name);
+				CREATE INDEX ability_name__idx ON abilities(name);
+				CREATE INDEX damage_class_name__idx ON damage_classes(name);
+				CREATE INDEX pokemon_hp__idx ON pokemon(hp);
+				CREATE INDEX pokemon_atk__idx ON pokemon(atk);
+				CREATE INDEX pokemon_def__idx ON pokemon(def);
+				CREATE INDEX pokemon_sp_atk__idx ON pokemon(sp_atk);
+				CREATE INDEX pokemon_sp_def__idx ON pokemon(sp_def);
+				CREATE INDEX pokemon_spd__idx ON pokemon(spd)`
+
+	_, err := sqlStore.db.Exec(query)
+	if err != nil {
+		return err
 	}
 
 	return nil
