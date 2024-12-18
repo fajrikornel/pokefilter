@@ -23,7 +23,7 @@ func NewMoveFilter(move string) (*MoveFilter, error) {
 func (f *MoveFilter) BuildQuery() (string, error) {
 	query := fmt.Sprintf(`
 		SELECT 
-		    p.id as pokemon_id 
+		    DISTINCT p.id as pokemon_id 
 		FROM 
 			pokemon p 
 			LEFT JOIN pokemon_moves pm on p.id = pm.pokemon_id 

@@ -64,7 +64,7 @@ func TestAbilityFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN pokemon_abilities pa on p.id = pa.pokemon_id 
@@ -82,7 +82,7 @@ func TestAbilityFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN pokemon_abilities pa on p.id = pa.pokemon_id 

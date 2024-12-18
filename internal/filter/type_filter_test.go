@@ -72,7 +72,7 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
@@ -91,7 +91,7 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
@@ -110,7 +110,7 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
@@ -129,7 +129,7 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 			},
 			want: fmt.Sprintf(`
 					SELECT 
-						p.id as pokemon_id 
+						DISTINCT p.id as pokemon_id 
 					FROM 
 					    pokemon p 
 						LEFT JOIN types t1 on p.type_1_id = t1.id 

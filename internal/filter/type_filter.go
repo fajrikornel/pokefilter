@@ -40,7 +40,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 	if f.type2 != "" {
 		query = fmt.Sprintf(`
 			SELECT 
-				p.id as pokemon_id 
+				DISTINCT p.id as pokemon_id 
 			FROM 
 				pokemon p 
 				LEFT JOIN types t1 on p.type_1_id = t1.id 
@@ -54,7 +54,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 			excludeTypesString := "'" + strings.Join(f.excludeTypes, "', '") + "'"
 			query = fmt.Sprintf(`
 				SELECT 
-					p.id as pokemon_id 
+					DISTINCT p.id as pokemon_id 
 				FROM 
 					pokemon p 
 					LEFT JOIN types t1 on p.type_1_id = t1.id 
@@ -66,7 +66,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 		} else {
 			query = fmt.Sprintf(`
 				SELECT 
-					p.id as pokemon_id 
+					DISTINCT p.id as pokemon_id 
 				FROM 
 					pokemon p 
 					LEFT JOIN types t1 on p.type_1_id = t1.id 
