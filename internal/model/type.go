@@ -5,8 +5,8 @@ type TypeStore struct {
 }
 
 type Type struct {
-	id   int
-	name string
+	Id   int
+	Name string
 }
 
 func NewTypeStore(sqlStore *InMemorySqlStore) *TypeStore {
@@ -25,7 +25,7 @@ func (m *TypeStore) GetAllTypes() ([]Type, error) {
 	types := make([]Type, 0)
 	for res.Next() {
 		var r Type
-		err = res.Scan(&r.id, &r.name)
+		err = res.Scan(&r.Id, &r.Name)
 		if err != nil {
 			return nil, err
 		}

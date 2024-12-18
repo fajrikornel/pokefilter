@@ -5,8 +5,8 @@ type DamageClassStore struct {
 }
 
 type DamageClass struct {
-	id   int
-	name string
+	Id   int
+	Name string
 }
 
 func NewDamageClassStore(sqlStore *InMemorySqlStore) *DamageClassStore {
@@ -25,7 +25,7 @@ func (m *DamageClassStore) GetAllDamageClasses() ([]DamageClass, error) {
 	damageClasses := make([]DamageClass, 0)
 	for res.Next() {
 		var r DamageClass
-		err = res.Scan(&r.id, &r.name)
+		err = res.Scan(&r.Id, &r.Name)
 		if err != nil {
 			return nil, err
 		}

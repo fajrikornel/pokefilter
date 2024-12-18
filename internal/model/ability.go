@@ -5,8 +5,8 @@ type AbilityStore struct {
 }
 
 type Ability struct {
-	id   int
-	name string
+	Id   int
+	Name string
 }
 
 func NewAbilityStore(sqlStore *InMemorySqlStore) *AbilityStore {
@@ -25,7 +25,7 @@ func (m *AbilityStore) GetAllAbilities() ([]Ability, error) {
 	abilities := make([]Ability, 0)
 	for res.Next() {
 		var r Ability
-		err = res.Scan(&r.id, &r.name)
+		err = res.Scan(&r.Id, &r.Name)
 		if err != nil {
 			return nil, err
 		}

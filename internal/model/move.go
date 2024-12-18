@@ -5,10 +5,10 @@ type MoveStore struct {
 }
 
 type Move struct {
-	id            int
-	name          string
-	typeId        int
-	damageClassId int
+	Id            int
+	Name          string
+	TypeId        int
+	DamageClassId int
 }
 
 func NewMoveStore(sqlStore *InMemorySqlStore) *MoveStore {
@@ -27,7 +27,7 @@ func (m *MoveStore) GetAllMoves() ([]Move, error) {
 	moves := make([]Move, 0)
 	for res.Next() {
 		var r Move
-		err = res.Scan(&r.id, &r.name, &r.typeId, &r.damageClassId)
+		err = res.Scan(&r.Id, &r.Name, &r.TypeId, &r.DamageClassId)
 		if err != nil {
 			return nil, err
 		}

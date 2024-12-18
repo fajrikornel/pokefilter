@@ -10,16 +10,16 @@ type PokemonStore struct {
 }
 
 type Pokemon struct {
-	id      int
-	name    string
-	type1Id int
-	type2Id int // -1 means no type2
-	hp      int
-	atk     int
-	def     int
-	spAtk   int
-	spDef   int
-	spd     int
+	Id      int
+	Name    string
+	Type1Id int
+	Type2Id int // -1 means no type2
+	Hp      int
+	Atk     int
+	Def     int
+	SpAtk   int
+	SpDef   int
+	Spd     int
 }
 
 func NewPokemonStore(sqlStore *InMemorySqlStore) *PokemonStore {
@@ -39,7 +39,7 @@ func (m *PokemonStore) GetPokemonByIds(pokemonIds []int) ([]Pokemon, error) {
 	pokemon := make([]Pokemon, 0)
 	for res.Next() {
 		var r Pokemon
-		err = res.Scan(&r.id, &r.name, &r.type1Id, &r.type2Id, &r.hp, &r.atk, &r.def, &r.spAtk, &r.spDef, &r.spd)
+		err = res.Scan(&r.Id, &r.Name, &r.Type1Id, &r.Type2Id, &r.Hp, &r.Atk, &r.Def, &r.SpAtk, &r.SpDef, &r.Spd)
 		if err != nil {
 			return nil, err
 		}
@@ -51,5 +51,5 @@ func (m *PokemonStore) GetPokemonByIds(pokemonIds []int) ([]Pokemon, error) {
 }
 
 func (p Pokemon) GetName() string {
-	return p.name
+	return p.Name
 }
