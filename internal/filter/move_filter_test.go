@@ -25,7 +25,7 @@ func TestNewMoveFilter(t *testing.T) {
 			name: "should return move filter if move is not empty",
 			args: args{move: "hypnosis"},
 			want: &MoveFilter{
-				move: "hypnosis",
+				Move: "hypnosis",
 			},
 			wantErr: false,
 		},
@@ -96,7 +96,7 @@ func TestMoveFilter_BuildQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &MoveFilter{
-				move:  tt.fields.move,
+				Move:  tt.fields.move,
 				chain: tt.fields.chain,
 			}
 			got, err := f.BuildQuery()
@@ -146,7 +146,7 @@ func TestMoveFilter_Chain(t *testing.T) {
 				other: terminalFilter,
 			},
 			want: &MoveFilter{
-				move:  "hypnosis",
+				Move:  "hypnosis",
 				chain: terminalFilter,
 			},
 			wantErr: false,
@@ -167,7 +167,7 @@ func TestMoveFilter_Chain(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &MoveFilter{
-				move:  tt.fields.move,
+				Move:  tt.fields.move,
 				chain: tt.fields.chain,
 			}
 			got, err := f.Chain(tt.args.other)

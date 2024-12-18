@@ -25,7 +25,7 @@ func TestNewAbilityFilter(t *testing.T) {
 			name: "should return ability filter if ability is not empty",
 			args: args{ability: "no-guard"},
 			want: &AbilityFilter{
-				ability: "no-guard",
+				Ability: "no-guard",
 			},
 			wantErr: false,
 		},
@@ -96,7 +96,7 @@ func TestAbilityFilter_BuildQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &AbilityFilter{
-				ability: tt.fields.ability,
+				Ability: tt.fields.ability,
 				chain:   tt.fields.chain,
 			}
 			got, err := f.BuildQuery()
@@ -146,7 +146,7 @@ func TestAbilityFilter_Chain(t *testing.T) {
 				other: terminalFilter,
 			},
 			want: &AbilityFilter{
-				ability: "no-guard",
+				Ability: "no-guard",
 				chain:   terminalFilter,
 			},
 			wantErr: false,
@@ -167,7 +167,7 @@ func TestAbilityFilter_Chain(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &AbilityFilter{
-				ability: tt.fields.ability,
+				Ability: tt.fields.ability,
 				chain:   tt.fields.chain,
 			}
 			got, err := f.Chain(tt.args.other)

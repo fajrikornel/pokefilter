@@ -6,7 +6,7 @@ import (
 )
 
 type AbilityFilter struct {
-	ability string
+	Ability string
 	chain   Filter
 }
 
@@ -16,7 +16,7 @@ func NewAbilityFilter(ability string) (*AbilityFilter, error) {
 	}
 
 	return &AbilityFilter{
-		ability: ability,
+		Ability: ability,
 	}, nil
 }
 
@@ -30,7 +30,7 @@ func (f *AbilityFilter) BuildQuery() (string, error) {
 			LEFT JOIN abilities a on a.id = pa.ability_id 
 		WHERE 
 		    a.name = '%s' 
-	`, f.ability)
+	`, f.Ability)
 
 	var chainQuery string
 	var err error

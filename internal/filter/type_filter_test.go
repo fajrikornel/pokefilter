@@ -162,9 +162,9 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &TypeFilter{
-				type1:        tt.fields.type1,
-				type2:        tt.fields.type2,
-				excludeTypes: tt.fields.excludeTypes,
+				Type1:        tt.fields.type1,
+				Type2:        tt.fields.type2,
+				ExcludeTypes: tt.fields.excludeTypes,
 				chain:        tt.fields.chain,
 			}
 			got, err := f.BuildQuery()
@@ -217,8 +217,8 @@ func TestTypeFilter_Chain(t *testing.T) {
 				other: terminalFilter,
 			},
 			want: &TypeFilter{
-				type1: "normal",
-				type2: "fairy",
+				Type1: "normal",
+				Type2: "fairy",
 				chain: terminalFilter,
 			},
 			wantErr: false,
@@ -240,9 +240,9 @@ func TestTypeFilter_Chain(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &TypeFilter{
-				type1:        tt.fields.type1,
-				type2:        tt.fields.type2,
-				excludeTypes: tt.fields.excludeTypes,
+				Type1:        tt.fields.type1,
+				Type2:        tt.fields.type2,
+				ExcludeTypes: tt.fields.excludeTypes,
 				chain:        tt.fields.chain,
 			}
 			got, err := f.Chain(tt.args.other)

@@ -6,7 +6,7 @@ import (
 )
 
 type MoveFilter struct {
-	move  string
+	Move  string
 	chain Filter
 }
 
@@ -16,7 +16,7 @@ func NewMoveFilter(move string) (*MoveFilter, error) {
 	}
 
 	return &MoveFilter{
-		move: move,
+		Move: move,
 	}, nil
 }
 
@@ -30,7 +30,7 @@ func (f *MoveFilter) BuildQuery() (string, error) {
 			LEFT JOIN moves m on m.id = pm.move_id 
 		WHERE 
 		    m.name = '%s' 
-	`, f.move)
+	`, f.Move)
 
 	var chainQuery string
 	var err error

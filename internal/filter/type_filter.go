@@ -7,9 +7,9 @@ import (
 )
 
 type TypeFilter struct {
-	type1        string
-	type2        string
-	excludeTypes []string
+	Type1        string
+	Type2        string
+	ExcludeTypes []string
 	chain        Filter
 }
 
@@ -31,15 +31,15 @@ func NewTypeFilter(type1, type2 string, excludeTypes []string) (*TypeFilter, err
 	}
 
 	return &TypeFilter{
-		type1:        type1,
-		type2:        type2,
-		excludeTypes: excludeTypes,
+		Type1:        type1,
+		Type2:        type2,
+		ExcludeTypes: excludeTypes,
 	}, nil
 }
 
 func (f *TypeFilter) BuildQuery() (string, error) {
 	var query string
-	if f.type2 != "" {
+	if f.Type2 != "" {
 		query = fmt.Sprintf(`
 			SELECT 
 				DISTINCT p.id as pokemon_id 
@@ -50,10 +50,10 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 			WHERE 
 				((t1.name = '%s' AND t2.name = '%s') OR 
 				(t2.name = '%s' AND t1.name = '%s')) 
-			`, f.type1, f.type2, f.type1, f.type2)
-	} else if f.type1 != "" {
-		if f.excludeTypes != nil && len(f.excludeTypes) > 0 {
-			excludeTypesString := "'" + strings.Join(f.excludeTypes, "', '") + "'"
+			`, f.Type1, f.Type2, f.Type1, f.Type2)
+	} else if f.Type1 != "" {
+		if f.ExcludeTypes != nil && len(f.ExcludeTypes) > 0 {
+			excludeTypesString := "'" + strings.Join(f.ExcludeTypes, "', '") + "'"
 			query = fmt.Sprintf(`
 				SELECT 
 					DISTINCT p.id as pokemon_id 
@@ -64,7 +64,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 				WHERE 
 					((t1.name = '%s' AND (t2.name NOT IN (%s) OR t2.name IS NULL)) OR 
 					(t2.name = '%s' AND (t1.name NOT IN (%s) OR t1.name IS NULL))) 
-				`, f.type1, excludeTypesString, f.type1, excludeTypesString)
+				`, f.Type1, excludeTypesString, f.Type1, excludeTypesString)
 		} else {
 			query = fmt.Sprintf(`
 				SELECT 
@@ -75,10 +75,10 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 					LEFT JOIN types t2 on p.type_2_id = t2.id 
 				WHERE 
 					(t1.name = '%s' OR t2.name = '%s') 
-				`, f.type1, f.type1)
+				`, f.Type1, f.Type1)
 		}
 	} else {
-		excludeTypesString := "'" + strings.Join(f.excludeTypes, "', '") + "'"
+		excludeTypesString := "'" + strings.Join(f.ExcludeTypes, "', '") + "'"
 		query = fmt.Sprintf(`
 			SELECT 
 				DISTINCT p.id as pokemon_id 

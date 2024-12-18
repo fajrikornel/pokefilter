@@ -26,8 +26,8 @@ func TestNewMoveTypeFilter(t *testing.T) {
 			name: "should return move type filter",
 			args: args{moveType: "psychic", moveDamageClass: "special"},
 			want: &MoveTypeFilter{
-				moveType:        "psychic",
-				moveDamageClass: "special",
+				MoveType:        "psychic",
+				MoveDamageClass: "special",
 			},
 			wantErr: false,
 		},
@@ -141,8 +141,8 @@ func TestMoveTypeFilter_BuildQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &MoveTypeFilter{
-				moveType:        tt.fields.moveType,
-				moveDamageClass: tt.fields.moveDamageClass,
+				MoveType:        tt.fields.moveType,
+				MoveDamageClass: tt.fields.moveDamageClass,
 				chain:           tt.fields.chain,
 			}
 			got, err := f.BuildQuery()
@@ -194,8 +194,8 @@ func TestMoveTypeFilter_Chain(t *testing.T) {
 				other: terminalFilter,
 			},
 			want: &MoveTypeFilter{
-				moveType:        "grass",
-				moveDamageClass: "special",
+				MoveType:        "grass",
+				MoveDamageClass: "special",
 				chain:           terminalFilter,
 			},
 			wantErr: false,
@@ -217,8 +217,8 @@ func TestMoveTypeFilter_Chain(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &MoveTypeFilter{
-				moveType:        tt.fields.moveType,
-				moveDamageClass: tt.fields.moveDamageClass,
+				MoveType:        tt.fields.moveType,
+				MoveDamageClass: tt.fields.moveDamageClass,
 				chain:           tt.fields.chain,
 			}
 			got, err := f.Chain(tt.args.other)

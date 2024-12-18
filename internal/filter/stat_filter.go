@@ -6,18 +6,18 @@ import (
 )
 
 type StatFilter struct {
-	minHp    int
-	maxHp    int
-	minAtk   int
-	maxAtk   int
-	minDef   int
-	maxDef   int
-	minSpAtk int
-	maxSpAtk int
-	minSpDef int
-	maxSpDef int
-	minSpd   int
-	maxSpd   int
+	MinHp    int
+	MaxHp    int
+	MinAtk   int
+	MaxAtk   int
+	MinDef   int
+	MaxDef   int
+	MinSpAtk int
+	MaxSpAtk int
+	MinSpDef int
+	MaxSpDef int
+	MinSpd   int
+	MaxSpd   int
 	chain    Filter
 }
 
@@ -30,18 +30,18 @@ func NewStatFilter(
 	minSpd int, maxSpd int,
 ) (*StatFilter, error) {
 	return &StatFilter{
-		minHp:    minHp,
-		maxHp:    maxHp,
-		minAtk:   minAtk,
-		maxAtk:   maxAtk,
-		minDef:   minDef,
-		maxDef:   maxDef,
-		minSpAtk: minSpAtk,
-		maxSpAtk: maxSpAtk,
-		minSpDef: minSpDef,
-		maxSpDef: maxSpDef,
-		minSpd:   minSpd,
-		maxSpd:   maxSpd,
+		MinHp:    minHp,
+		MaxHp:    maxHp,
+		MinAtk:   minAtk,
+		MaxAtk:   maxAtk,
+		MinDef:   minDef,
+		MaxDef:   maxDef,
+		MinSpAtk: minSpAtk,
+		MaxSpAtk: maxSpAtk,
+		MinSpDef: minSpDef,
+		MaxSpDef: maxSpDef,
+		MinSpd:   minSpd,
+		MaxSpd:   maxSpd,
 	}, nil
 }
 
@@ -59,12 +59,12 @@ func (f *StatFilter) BuildQuery() (string, error) {
 		    p.sp_def >= %d AND p.sp_def <= %d AND 
 			p.spd >= %d AND p.spd <= %d 
 	`,
-		f.minHp, f.maxHp,
-		f.minAtk, f.maxAtk,
-		f.minDef, f.maxDef,
-		f.minSpAtk, f.maxSpAtk,
-		f.minSpDef, f.maxSpDef,
-		f.minSpd, f.maxSpd,
+		f.MinHp, f.MaxHp,
+		f.MinAtk, f.MaxAtk,
+		f.MinDef, f.MaxDef,
+		f.MinSpAtk, f.MaxSpAtk,
+		f.MinSpDef, f.MaxSpDef,
+		f.MinSpd, f.MaxSpd,
 	)
 
 	var chainQuery string

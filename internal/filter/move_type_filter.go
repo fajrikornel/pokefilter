@@ -6,8 +6,8 @@ import (
 )
 
 type MoveTypeFilter struct {
-	moveType        string
-	moveDamageClass string
+	MoveType        string
+	MoveDamageClass string
 	chain           Filter
 }
 
@@ -17,14 +17,14 @@ func NewMoveTypeFilter(moveType, moveDamageClass string) (*MoveTypeFilter, error
 	}
 
 	return &MoveTypeFilter{
-		moveType:        moveType,
-		moveDamageClass: moveDamageClass,
+		MoveType:        moveType,
+		MoveDamageClass: moveDamageClass,
 	}, nil
 }
 
 func (f *MoveTypeFilter) BuildQuery() (string, error) {
 	var query string
-	if f.moveType != "" && f.moveDamageClass != "" {
+	if f.MoveType != "" && f.MoveDamageClass != "" {
 		query = fmt.Sprintf(`
 			SELECT 
 				DISTINCT p.id as pokemon_id 
@@ -36,8 +36,8 @@ func (f *MoveTypeFilter) BuildQuery() (string, error) {
 				LEFT JOIN damage_classes dc on dc.id = m.damage_class_id 
 			WHERE 
 				t.name = '%s' AND dc.name = '%s' 
-		`, f.moveType, f.moveDamageClass)
-	} else if f.moveType != "" {
+		`, f.MoveType, f.MoveDamageClass)
+	} else if f.MoveType != "" {
 		query = fmt.Sprintf(`
 			SELECT 
 				DISTINCT p.id as pokemon_id 
@@ -48,7 +48,7 @@ func (f *MoveTypeFilter) BuildQuery() (string, error) {
 				LEFT JOIN types t on t.id = m.type_id 
 			WHERE 
 				t.name = '%s' 
-		`, f.moveType)
+		`, f.MoveType)
 	} else {
 		query = fmt.Sprintf(`
 			SELECT 
@@ -60,7 +60,7 @@ func (f *MoveTypeFilter) BuildQuery() (string, error) {
 				LEFT JOIN damage_classes dc on dc.id = m.damage_class_id 
 			WHERE 
 				dc.name = '%s' 
-		`, f.moveDamageClass)
+		`, f.MoveDamageClass)
 	}
 
 	var chainQuery string
