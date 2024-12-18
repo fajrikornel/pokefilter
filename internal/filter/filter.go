@@ -28,3 +28,7 @@ func (f *TerminalFilter) BuildQuery() (string, error) {
 func (f *TerminalFilter) Chain(_ Filter) (Filter, error) {
 	return nil, errors.New("terminal filter should be the last filter, it cannot be chained with other filters")
 }
+
+func (f *TerminalFilter) Display() string {
+	return "Terminal Filter. Not supposed to Display()!"
+}

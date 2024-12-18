@@ -20,3 +20,7 @@ func (f *MockFilter) BuildQuery() (string, error) {
 func (f *MockFilter) Chain(other Filter) (Filter, error) {
 	panic("not supported")
 }
+
+func (f *MockFilter) Display() string {
+	return "mock_filter_display"
+}
