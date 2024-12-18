@@ -78,8 +78,8 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
 						LEFT JOIN types t2 on p.type_2_id = t2.id 
 					WHERE 
-						(t1.name = 'normal' AND t2.name = 'flying') OR 
-						(t2.name = 'normal' AND t1.name = 'flying') AND  
+						((t1.name = 'normal' AND t2.name = 'flying') OR 
+						(t2.name = 'normal' AND t1.name = 'flying')) AND  
 						p.id IN (%s)`, mockFilterQuery),
 			wantErr: false,
 		},
@@ -97,7 +97,7 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
 						LEFT JOIN types t2 on p.type_2_id = t2.id 
 					WHERE 
-						t1.name = 'normal' OR t2.name = 'normal' AND 
+						(t1.name = 'normal' OR t2.name = 'normal') AND 
 						p.id IN (%s)`, mockFilterQuery),
 			wantErr: false,
 		},
@@ -116,8 +116,8 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
 						LEFT JOIN types t2 on p.type_2_id = t2.id 
 					WHERE 
-						(t1.name = 'fire' AND t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark')) OR 
-						(t2.name = 'fire' AND t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark')) AND 
+						((t1.name = 'fire' AND t2.name NOT IN ('fighting', 'psychic', 'flying', 'dark')) OR 
+						(t2.name = 'fire' AND t1.name NOT IN ('fighting', 'psychic', 'flying', 'dark'))) AND 
 						p.id IN (%s)`, mockFilterQuery),
 			wantErr: false,
 		},
@@ -135,8 +135,8 @@ func TestTypeFilter_BuildQuery(t *testing.T) {
 						LEFT JOIN types t1 on p.type_1_id = t1.id 
 						LEFT JOIN types t2 on p.type_2_id = t2.id 
 					WHERE 
-						(t1.name = 'normal' AND t2.name = 'flying') OR 
-						(t2.name = 'normal' AND t1.name = 'flying') AND  
+						((t1.name = 'normal' AND t2.name = 'flying') OR 
+						(t2.name = 'normal' AND t1.name = 'flying')) AND  
 						p.id IN (%s)`, terminalFilterQuery),
 			wantErr: false,
 		},

@@ -46,8 +46,8 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 				LEFT JOIN types t1 on p.type_1_id = t1.id 
 				LEFT JOIN types t2 on p.type_2_id = t2.id 
 			WHERE 
-				(t1.name = '%s' AND t2.name = '%s') OR 
-				(t2.name = '%s' AND t1.name = '%s') 
+				((t1.name = '%s' AND t2.name = '%s') OR 
+				(t2.name = '%s' AND t1.name = '%s')) 
 			`, f.type1, f.type2, f.type1, f.type2)
 	} else {
 		if f.excludeTypes != nil && len(f.excludeTypes) > 0 {
@@ -60,8 +60,8 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 					LEFT JOIN types t1 on p.type_1_id = t1.id 
 					LEFT JOIN types t2 on p.type_2_id = t2.id 
 				WHERE 
-					(t1.name = '%s' AND t2.name NOT IN (%s)) OR 
-					(t2.name = '%s' AND t1.name NOT IN (%s)) 
+					((t1.name = '%s' AND t2.name NOT IN (%s)) OR 
+					(t2.name = '%s' AND t1.name NOT IN (%s))) 
 				`, f.type1, excludeTypesString, f.type1, excludeTypesString)
 		} else {
 			query = fmt.Sprintf(`
@@ -72,7 +72,7 @@ func (f *TypeFilter) BuildQuery() (string, error) {
 					LEFT JOIN types t1 on p.type_1_id = t1.id 
 					LEFT JOIN types t2 on p.type_2_id = t2.id 
 				WHERE 
-					t1.name = '%s' OR t2.name = '%s' 
+					(t1.name = '%s' OR t2.name = '%s') 
 				`, f.type1, f.type1)
 		}
 	}
