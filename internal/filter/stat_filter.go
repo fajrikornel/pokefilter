@@ -137,15 +137,13 @@ func (f *StatFilter) Display() string {
 		maxSpd = fmt.Sprintf("%d", f.MaxSpd)
 	}
 
-	return fmt.Sprintf(`
-Pokemon stats filter:
-HP 			/ %d - %s
-Attack 		/ %d - %s
-Defense 	/ %d - %s
-Sp. Attack 	/ %d - %s
-Sp. Defense	/ %d - %s
-Speed		/ %d - %s
-`,
+	return fmt.Sprintf(`Pokemon stats filter:
+HP => %d - %s
+Attack => %d - %s
+Defense => %d - %s
+Sp. Attack => %d - %s
+Sp. Defense => %d - %s
+Speed => %d - %s`,
 		f.MinHp, maxHp,
 		f.MinAtk, maxAtk,
 		f.MinDef, maxDef,
