@@ -56,3 +56,7 @@ func (f *MoveFilter) Chain(other Filter) (Filter, error) {
 	f.chain = other
 	return f, nil
 }
+
+func (f *MoveFilter) Display() string {
+	return fmt.Sprintf("Pokemon has the move %s", f.Move)
+}

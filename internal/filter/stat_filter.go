@@ -3,6 +3,7 @@ package filter
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 type StatFilter struct {
@@ -90,4 +91,66 @@ func (f *StatFilter) Chain(other Filter) (Filter, error) {
 
 	f.chain = other
 	return f, nil
+}
+
+func (f *StatFilter) Display() string {
+
+	var maxHp string
+	if f.MaxHp == math.MaxInt {
+		maxHp = "\u221E"
+	} else {
+		maxHp = fmt.Sprintf("%d", f.MaxHp)
+	}
+
+	var maxAtk string
+	if f.MaxAtk == math.MaxInt {
+		maxAtk = "\u221E"
+	} else {
+		maxAtk = fmt.Sprintf("%d", f.MaxAtk)
+	}
+
+	var maxDef string
+	if f.MaxDef == math.MaxInt {
+		maxDef = "\u221E"
+	} else {
+		maxDef = fmt.Sprintf("%d", f.MaxDef)
+	}
+
+	var maxSpAtk string
+	if f.MaxSpAtk == math.MaxInt {
+		maxSpAtk = "\u221E"
+	} else {
+		maxSpAtk = fmt.Sprintf("%d", f.MaxSpAtk)
+	}
+
+	var maxSpDef string
+	if f.MaxSpDef == math.MaxInt {
+		maxSpDef = "\u221E"
+	} else {
+		maxSpDef = fmt.Sprintf("%d", f.MaxSpDef)
+	}
+
+	var maxSpd string
+	if f.MaxSpd == math.MaxInt {
+		maxSpd = "\u221E"
+	} else {
+		maxSpd = fmt.Sprintf("%d", f.MaxSpd)
+	}
+
+	return fmt.Sprintf(`
+Pokemon stats filter:
+HP 			/ %d - %s
+Attack 		/ %d - %s
+Defense 	/ %d - %s
+Sp. Attack 	/ %d - %s
+Sp. Defense	/ %d - %s
+Speed		/ %d - %s
+`,
+		f.MinHp, maxHp,
+		f.MinAtk, maxAtk,
+		f.MinDef, maxDef,
+		f.MinSpAtk, maxSpAtk,
+		f.MinSpDef, maxSpDef,
+		f.MinSpd, maxSpd,
+	)
 }

@@ -56,3 +56,7 @@ func (f *AbilityFilter) Chain(other Filter) (Filter, error) {
 	f.chain = other
 	return f, nil
 }
+
+func (f *AbilityFilter) Display() string {
+	return fmt.Sprintf("Pokemon has the ability %s", f.Ability)
+}

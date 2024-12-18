@@ -10,6 +10,10 @@ type Filter interface {
 	Chain(other Filter) (Filter, error)
 }
 
+type CLIDisplay interface {
+	Display() string
+}
+
 type TerminalFilter struct {
 	query string
 }

@@ -87,3 +87,13 @@ func (f *MoveTypeFilter) Chain(other Filter) (Filter, error) {
 	f.chain = other
 	return f, nil
 }
+
+func (f *MoveTypeFilter) Display() string {
+	if f.MoveType != "" && f.MoveDamageClass != "" {
+		return fmt.Sprintf("Pokemon has a %s %s type move", f.MoveDamageClass, f.MoveType)
+	} else if f.MoveType != "" {
+		return fmt.Sprintf("Pokemon has a %s type move", f.MoveType)
+	} else {
+		return fmt.Sprintf("Pokemon has a %s move", f.MoveDamageClass)
+	}
+}

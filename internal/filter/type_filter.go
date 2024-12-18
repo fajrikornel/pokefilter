@@ -115,3 +115,19 @@ func (f *TypeFilter) Chain(other Filter) (Filter, error) {
 	f.chain = other
 	return f, nil
 }
+
+func (f *TypeFilter) Display() string {
+	if f.Type2 != "" {
+		return fmt.Sprintf("Pokemon has the type %s and %s", f.Type1, f.Type2)
+	} else if f.Type1 != "" {
+		if f.ExcludeTypes != nil && len(f.ExcludeTypes) > 0 {
+			excludeTypesString := "'" + strings.Join(f.ExcludeTypes, "', '") + "'"
+			return fmt.Sprintf("Pokemon has the type %s but does not have type %s", f.Type1, excludeTypesString)
+		} else {
+			return fmt.Sprintf("Pokemon has the type %s", f.Type1)
+		}
+	} else {
+		excludeTypesString := "'" + strings.Join(f.ExcludeTypes, "', '") + "'"
+		return fmt.Sprintf("Pokemon does not have type %s", excludeTypesString)
+	}
+}
